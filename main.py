@@ -12,8 +12,8 @@ class Example(wx.Frame):
         super(Example,self).__init__(*args, **kwargs)
 
         panel = wx.SplitterWindow(self)
-        cpanel = plotPanel(panel)
-        cpanel.draw()
+        cpanel = plotPanel(panel, abfFile)
+        #cpanel.draw()
 
         self.InitUI()
 
@@ -58,6 +58,10 @@ class Example(wx.Frame):
         menubar.Append(viewMenu, '&View')
         self.SetMenuBar(menubar)
 
+        abfPicker = wx.FilePickerCtrl(self, wx.ID_ANY, message='Please choose your ABF file', wildcard='*.abf')
+        btnSizer.Add(abfPicker, proportion=1, flag=wx.EXPAND|wx.ALL, border=5)
+        btnSizer.AddStretchSpacer(3)
+
    
     def OnQuit(self, e):
         self.Close()
@@ -69,11 +73,6 @@ class Example(wx.Frame):
         else:
             self.statusbar.Hide()
     
-    def ToggleToolBar(self, e):
-        if self.shtl.IsChecked():
-            self.toolbar.Show()
-        else:
-            self.toolbar.Hide()
 
 def main():
 
